@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/favicon.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="assets/favicon.jpg">
+  <title>Booking｜SETOUCHI BLUE VILLA</title>
+  <meta name="description" content="SETOUCHI BLUE VILLAのご予約。1棟¥150,000〜、朝食付き。瀬戸内BBQプラン¥5,000/人。空室確認と予約リクエストはこちらから。">
+  <meta property="og:title" content="Booking｜SETOUCHI BLUE VILLA">
+  <meta property="og:description" content="SETOUCHI BLUE VILLAのご予約。1棟¥150,000〜、朝食付き。瀬戸内BBQプラン¥5,000/人。">
+  <meta property="og:image" content="assets/images/setouchibluevilla-entrance.webp">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <span class="header-logo__main">SETOUCHI BLUE VILLA</span>
+      </a>
+      <button class="hamburger" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+      <nav class="header-nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="villa.html">Villa</a></li>
+          <li><a href="sauna.html">Sauna</a></li>
+          <li><a href="dining.html">Dining</a></li>
+          <li><a href="stay.html">Stay</a></li>
+          <li><a href="booking.html">Booking</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <a href="booking.html" class="btn-reserve">Reserve</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero--short">
+      <div class="page-hero__bg">
+        <img src="assets/images/setouchibluevilla-entrance.webp" alt="ヴィラエントランス">
+      </div>
+      <div class="page-hero__overlay"></div>
+      <div class="page-hero__content">
+        <h1 class="page-hero__title">Booking</h1>
+        <p class="page-hero__subtitle">空室確認・予約リクエスト</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="booking-layout">
+          <div class="booking-info fade-in">
+            <span class="section-label">Rates</span>
+            <h2 class="section-title">料金</h2>
+            <div class="gold-line"></div>
+            <p class="section-lead">1日1組限定の完全貸切。朝食は宿泊者全員分含まれます。<br>季節・曜日により料金が変動する場合がございます。</p>
+
+            <div class="price-card">
+              <p class="price-card__title">料金目安</p>
+              <div class="price-row">
+                <span class="price-row__label">宿泊（<span id="price-nights">1泊</span>）</span>
+                <span class="price-row__value" id="price-base">¥150,000</span>
+              </div>
+              <div class="price-row" id="price-bbq-row" style="display: none;">
+                <span class="price-row__label">瀬戸内BBQプラン<span id="price-bbq-detail"></span></span>
+                <span class="price-row__value" id="price-bbq">¥0</span>
+              </div>
+              <div class="price-row price-row--total">
+                <span class="price-row__label">合計目安</span>
+                <span class="price-row__value" id="price-total">¥150,000</span>
+              </div>
+              <p class="price-note">基本料金：¥150,000 / 泊　／　瀬戸内BBQプラン：¥5,000 / 人・1食　／　※表示は目安です。確定料金はご連絡時にお伝えします。</p>
+            </div>
+
+            <div class="access-info" id="access">
+              <h3>Access</h3>
+              <p>愛媛県今治市・しまなみ海道エリア</p>
+              <ul>
+                <li>今治駅から車で約20分</li>
+                <li>今治港から車で約15分</li>
+                <li>駐車場あり（無料）</li>
+              </ul>
+            </div>
+
+            <div class="access-info">
+              <h3>Sister Hotel</h3>
+              <p>チェックイン受付は <strong>HOTEL SETOUCHI BLUE</strong> 本館にて承ります。本館から徒歩1分。<br>BLUE SHOP、レンタサイクル、本館サービスのご利用が可能です。</p>
+              <a href="https://dohiwebc.github.io/HOTELSETOUCHIBLUE/" class="text-link" target="_blank" rel="noopener" style="margin-top: 1rem;">Visit Sister Hotel</a>
+            </div>
+          </div>
+
+          <div class="fade-in fade-in-delay-1">
+            <form class="booking-form" id="booking-form">
+              <span class="section-label">Reservation Request</span>
+              <h2 class="section-title" style="font-size: 1.4rem; margin-bottom: 2rem;">予約リクエストフォーム</h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="checkin">チェックイン日</label>
+                  <input type="date" id="checkin" name="checkin" required>
+                </div>
+                <div class="form-group">
+                  <label for="checkout">チェックアウト日</label>
+                  <input type="date" id="checkout" name="checkout" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="guests">宿泊人数</label>
+                <select id="guests" name="guests" required>
+                  <option value="2">2名</option>
+                  <option value="3">3名</option>
+                  <option value="4">4名</option>
+                  <option value="5">5名</option>
+                  <option value="6">6名</option>
+                  <option value="7">7名</option>
+                  <option value="8">8名</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-checkbox">
+                  <input type="checkbox" id="bbq-request" name="bbq">
+                  <span>瀬戸内BBQプランを希望する（¥5,000 / 人・1食）</span>
+                </label>
+                <div class="bbq-fields" id="bbq-fields">
+                  <p class="form-hint">ご希望の日程と人数をお選びください。複数泊のご滞在では、泊ごとに日程と人数を設定いただけます。</p>
+                  <p class="form-hint" id="bbq-schedule-empty">チェックイン・チェックアウト日を選択すると、日程が表示されます。</p>
+                  <div class="bbq-schedule" id="bbq-schedule"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="name">氏名</label>
+                <input type="text" id="name" name="name" placeholder="山田 太郎" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">メールアドレス</label>
+                  <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">電話番号</label>
+                  <input type="tel" id="phone" name="phone" placeholder="090-0000-0000" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="notes">備考</label>
+                <textarea id="notes" name="notes" placeholder="記念日の利用、食物アレルギー、アレルギー対応のご希望など"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--primary form-submit">予約リクエストを送信</button>
+
+              <div class="form-message" id="form-message">
+                予約リクエストを受け付けました。内容確認後、担当よりご連絡いたします。
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="image-band">
+      <img src="assets/images/setouchibluevilla-night-terrace.webp" alt="夜のヴィラ">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-brand__name">SETOUCHI BLUE VILLA</p>
+          <p class="footer-brand__concept">誰にも邪魔されない、瀬戸内の一棟。海とサウナを、ひと組だけで。</p>
+          <div class="footer-sister"><a href="https://dohiwebc.github.io/HOTELSETOUCHIBLUE/" target="_blank" rel="noopener">HOTEL SETOUCHI BLUE →</a></div>
+        </div>
+        <div>
+          <p class="footer-heading">Navigation</p>
+          <nav class="footer-nav">
+            <a href="index.html">Home</a><a href="villa.html">Villa</a><a href="sauna.html">Sauna</a>
+            <a href="dining.html">Dining</a><a href="stay.html">Stay</a><a href="booking.html">Booking</a><a href="faq.html">FAQ</a>
+          </nav>
+        </div>
+        <div class="footer-contact">
+          <p class="footer-heading">Contact</p>
+          <p class="address">〒794-0000 愛媛県今治市<br>しまなみ海道エリア</p>
+          <p>TEL 0898-00-0000</p>
+          <p>info@setouchibluevilla.jp</p>
+        </div>
+        <div>
+          <p class="footer-heading">Information</p>
+          <nav class="footer-nav">
+            <a href="booking.html">ご予約</a><a href="faq.html">よくあるご質問</a><a href="booking.html#access">アクセス</a><a href="privacy-policy.html">プライバシーポリシー</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-bottom__copy">&copy; 2026 SETOUCHI BLUE VILLA. All Rights Reserved.</p>
+        <div class="footer-sns"><a href="#">Instagram</a></div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

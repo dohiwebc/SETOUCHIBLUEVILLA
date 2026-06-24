@@ -8,8 +8,8 @@
   --bg-tertiary: #1e1f23;
   --bg-elevated: #1a1b1f;
   --text-primary: #f5f3ef;
-  --text-muted: rgba(245, 243, 239, 0.62);
-  --text-subtle: rgba(245, 243, 239, 0.38);
+  --text-muted: rgba(245, 243, 239, 0.72);
+  --text-subtle: rgba(245, 243, 239, 0.5);
   --gold: #c7a56a;
   --gold-dark: #8f7752;
   --gold-light: rgba(199, 165, 106, 0.12);
@@ -89,6 +89,15 @@ a:hover {
   color: var(--gold);
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
 ul, ol {
   list-style: none;
 }
@@ -164,6 +173,7 @@ button {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 clamp(20px, 5vw, 48px);
+  min-width: 0;
 }
 
 .container--narrow {
@@ -487,7 +497,7 @@ button {
   font-size: 0.72rem;
   font-style: italic;
   letter-spacing: 0.14em;
-  color: var(--gold-dark);
+  color: var(--gold);
   margin-bottom: 1.75rem;
 }
 
@@ -528,7 +538,7 @@ button {
   font-family: var(--font-serif-en);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
-  color: var(--text-subtle);
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 
@@ -1052,6 +1062,15 @@ button {
   filter: brightness(1);
 }
 
+.gallery__item.is-gallery-enabled {
+  cursor: zoom-in;
+}
+
+.gallery__item.is-gallery-enabled:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
 .gallery__caption {
   position: absolute;
   bottom: 0;
@@ -1083,6 +1102,128 @@ button {
 
   .gallery--featured .gallery__item:first-child {
     grid-row: span 1;
+  }
+}
+
+/* Photo lightbox */
+body.is-lightbox-open {
+  overflow: hidden;
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  grid-template-columns: minmax(40px, 1fr) minmax(0, 1120px) minmax(40px, 1fr);
+  align-items: center;
+  gap: clamp(12px, 3vw, 28px);
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(8, 8, 10, 0.94);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.photo-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.photo-lightbox__figure {
+  grid-column: 2;
+  margin: 0;
+  min-width: 0;
+}
+
+.photo-lightbox__image {
+  width: 100%;
+  max-height: min(72vh, 760px);
+  object-fit: contain;
+  background: var(--bg-primary);
+}
+
+.photo-lightbox__caption {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.photo-lightbox__close,
+.photo-lightbox__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  border: 1px solid rgba(199, 165, 106, 0.32);
+  border-radius: 999px;
+  background: rgba(15, 15, 17, 0.44);
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.photo-lightbox__close:hover,
+.photo-lightbox__nav:hover,
+.photo-lightbox__close:focus-visible,
+.photo-lightbox__nav:focus-visible {
+  color: var(--gold);
+  border-color: rgba(199, 165, 106, 0.72);
+  background: rgba(199, 165, 106, 0.08);
+  outline: none;
+}
+
+.photo-lightbox__close {
+  position: absolute;
+  top: clamp(16px, 3vw, 32px);
+  right: clamp(16px, 3vw, 32px);
+  width: 38px;
+  height: 38px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.photo-lightbox__nav {
+  justify-self: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  font-family: var(--font-serif-en);
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.photo-lightbox__nav--prev {
+  grid-column: 1;
+}
+
+.photo-lightbox__nav--next {
+  grid-column: 3;
+}
+
+@media (max-width: 700px) {
+  .photo-lightbox {
+    grid-template-columns: 1fr 1fr;
+    align-content: center;
+    padding: 64px 16px 28px;
+  }
+
+  .photo-lightbox__figure {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .photo-lightbox__image {
+    max-height: 62vh;
+  }
+
+  .photo-lightbox__nav--prev,
+  .photo-lightbox__nav--next {
+    grid-column: auto;
+    grid-row: 2;
   }
 }
 
@@ -1440,6 +1581,11 @@ button {
   grid-template-columns: 1fr 1.1fr;
   gap: clamp(40px, 6vw, 80px);
   align-items: start;
+  min-width: 0;
+}
+
+.booking-layout > * {
+  min-width: 0;
 }
 
 .booking-info {
@@ -1460,13 +1606,116 @@ button {
   letter-spacing: 0.2em;
   color: var(--gold);
   text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.options-included-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1.25rem;
+  background: rgba(199, 165, 106, 0.1);
+  border: 1px solid rgba(199, 165, 106, 0.28);
+}
+
+.options-included-banner__badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-serif-en);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0.28rem 0.55rem;
+  border: 1px solid rgba(199, 165, 106, 0.45);
+}
+
+.options-included-banner__text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+}
+
+.options-included-banner__text strong {
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.options-free-callout {
+  padding: 1rem 1.1rem;
   margin-bottom: 1.5rem;
+  background: rgba(199, 165, 106, 0.08);
+  border: 1px solid rgba(199, 165, 106, 0.25);
+  border-left: 3px solid var(--gold);
+}
+
+.options-free-callout__lead {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.45rem;
+  line-height: 1.6;
+}
+
+.options-free-callout__sub {
+  font-size: 0.76rem;
+  color: var(--text-subtle);
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+}
+
+.option-free-badge {
+  display: inline-block;
+  font-family: var(--font-serif-en);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(199, 165, 106, 0.4);
+  background: rgba(199, 165, 106, 0.08);
+  vertical-align: middle;
+}
+
+.option-free-badge--lg {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.65rem;
+}
+
+.option-free-badge--sm {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.4rem;
+  margin-left: 0;
+}
+
+.option-group__legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  width: 100%;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.price-row__value--included {
+  color: var(--gold);
+  font-family: var(--font-serif-en);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
 }
 
 .price-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
   padding: 0.75rem 0;
   border-bottom: 1px solid rgba(199, 165, 106, 0.1);
   font-size: 0.9rem;
@@ -1487,10 +1736,15 @@ button {
 
 .price-row__label {
   color: var(--text-muted);
+  min-width: 0;
+  flex: 1 1 10rem;
 }
 
 .price-row__value {
   letter-spacing: 0.04em;
+  flex-shrink: 0;
+  margin-left: auto;
+  text-align: right;
 }
 
 .price-note {
@@ -1537,6 +1791,8 @@ button {
   border: 1px solid var(--border-subtle);
   padding: clamp(28px, 4vw, 48px);
   position: relative;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .booking-form::before {
@@ -1566,6 +1822,7 @@ button {
 .form-group select,
 .form-group textarea {
   width: 100%;
+  max-width: 100%;
   padding: 0.9rem 1rem;
   background: var(--bg-primary);
   border: 1px solid rgba(199, 165, 106, 0.15);
@@ -1579,7 +1836,8 @@ button {
 .form-group input:not([type="checkbox"]):not([type="radio"]):focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  outline: none;
+  outline: 1px solid rgba(199, 165, 106, 0.35);
+  outline-offset: 2px;
   border-color: var(--gold);
 }
 
@@ -1633,11 +1891,56 @@ button {
   background: var(--gold);
 }
 
+.form-checkbox input[type="checkbox"]:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
 .form-checkbox span {
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.8;
   flex: 1;
+}
+
+.option-group {
+  border: none;
+  padding: 0;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.option-card {
+  padding: 0.95rem 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-primary);
+  border: 1px solid rgba(199, 165, 106, 0.12);
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.option-card:hover,
+.option-card:focus-within {
+  border-color: rgba(199, 165, 106, 0.35);
+  background: rgba(199, 165, 106, 0.04);
+}
+
+.option-card span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.option-card strong {
+  color: var(--text-primary);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.option-card small {
+  color: var(--text-subtle);
+  font-size: 0.74rem;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
 }
 
 .bbq-fields {
@@ -1658,6 +1961,237 @@ button {
   margin-bottom: 1rem;
 }
 
+.form-intro-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  letter-spacing: 0.03em;
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 1.5rem;
+  background: rgba(199, 165, 106, 0.05);
+  border: 1px solid rgba(199, 165, 106, 0.12);
+}
+
+.option-compact-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.option-compact-row .form-group {
+  margin-bottom: 0;
+}
+
+.option-section-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--text-subtle);
+  margin: 1.25rem 0 0.6rem;
+}
+
+.option-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+}
+
+.option-chip-grid--wide .option-chip span {
+  font-size: 0.76rem;
+}
+
+.option-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  border: 1px solid rgba(199, 165, 106, 0.18);
+  background: var(--bg-primary);
+  transition: border-color var(--transition), background var(--transition);
+  max-width: 100%;
+}
+
+.option-chip:hover,
+.option-chip:focus-within {
+  border-color: rgba(199, 165, 106, 0.4);
+  background: rgba(199, 165, 106, 0.04);
+}
+
+.option-chip input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(199, 165, 106, 0.45);
+  background: var(--bg-primary);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.option-chip input[type="checkbox"]:checked {
+  border-color: var(--gold);
+}
+
+.option-chip input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: var(--gold);
+}
+
+.option-chip span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
+.option-chip:has(input:checked) {
+  border-color: rgba(199, 165, 106, 0.45);
+  background: rgba(199, 165, 106, 0.07);
+}
+
+.option-chip:has(input:checked) span {
+  color: var(--text-primary);
+}
+
+.option-subfields {
+  display: none;
+  margin: -0.25rem 0 1rem 2rem;
+  padding: 1rem 1.1rem;
+  background: rgba(199, 165, 106, 0.04);
+  border-left: 2px solid rgba(199, 165, 106, 0.25);
+}
+
+.option-subfields.is-visible {
+  display: block;
+}
+
+.option-subfields--inline.is-visible {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.option-subfields--inline label {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.option-subfields--inline select {
+  width: auto;
+  min-width: 7rem;
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.option-subfields--compact {
+  margin-left: 0;
+  padding: 0.75rem 0.9rem;
+}
+
+.option-subfields--compact .option-compact-row {
+  margin-bottom: 0.65rem;
+}
+
+.option-subfields--compact .option-chip {
+  margin-top: 0.25rem;
+}
+
+.option-subfields label:not(.form-checkbox) {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+
+.option-subfields select,
+.option-subfields input:not([type="checkbox"]):not([type="radio"]) {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.option-subfields .option-card {
+  margin-bottom: 0.6rem;
+}
+
+.option-radio-group {
+  margin: 0.75rem 0 1rem;
+}
+
+.option-radio-group__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.form-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  margin-bottom: 0.55rem;
+}
+
+.form-radio input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  margin-top: 0.35em;
+  border: 1px solid rgba(199, 165, 106, 0.45);
+  border-radius: 50%;
+  background: var(--bg-primary);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.form-radio input[type="radio"]:checked {
+  border-color: var(--gold);
+}
+
+.form-radio input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.form-radio input[type="radio"]:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.form-radio span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
 .bbq-schedule {
   display: flex;
   flex-direction: column;
@@ -1666,7 +2200,7 @@ button {
 
 .bbq-night-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 1rem;
@@ -1789,6 +2323,14 @@ button {
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .option-compact-row {
+    grid-template-columns: 1fr;
+  }
+
+  .option-subfields {
+    margin-left: 0;
   }
 }
 
@@ -2164,6 +2706,26 @@ button {
 .fade-in-delay-2 { transition-delay: 0.2s; }
 .fade-in-delay-3 { transition-delay: 0.3s; }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Divider */
 .gold-line {
   width: 32px;
@@ -2453,10 +3015,15 @@ button {
 
   html {
     font-size: 15px;
+    overflow-x: hidden;
   }
 
   body {
     line-height: 1.85;
+    overflow-x: hidden;
+    line-break: auto;
+    word-break: normal;
+    overflow-wrap: anywhere;
   }
 
   body.is-nav-open {
@@ -2465,10 +3032,90 @@ button {
     width: 100%;
   }
 
+  .section {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
   .container,
   .header-inner {
     padding-left: 16px;
     padding-right: 16px;
+    max-width: 100%;
+  }
+
+  .section-title,
+  .section-lead,
+  .hero__title,
+  .hero__subtitle,
+  .page-hero__subtitle,
+  .price-note,
+  .price-row__label,
+  .highlight-block__title,
+  .highlight-block__text,
+  .scene-card__title,
+  .scene-card__text,
+  .highlight-card__title,
+  .highlight-card__text,
+  .totonoi-step__title,
+  .totonoi-step__text,
+  .footer-brand__concept,
+  .sister-brand__text,
+  .access-info p,
+  .access-info li,
+  .form-intro-note,
+  .options-free-callout,
+  .options-included-banner__text,
+  .bbq-night-row__date {
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .split__image--framed img {
+    outline-offset: 4px;
+  }
+
+  .booking-form {
+    padding: 20px 16px;
+    overflow-x: clip;
+  }
+
+  .booking-form::before {
+    left: 16px;
+  }
+
+  .price-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .price-row__value {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .option-subfields--inline.is-visible {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .option-subfields--inline label {
+    white-space: normal;
+  }
+
+  .option-subfields--inline select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bbq-night-row__date-sub {
+    display: block;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .header-logo__main {

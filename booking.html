@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20260624-7">
 </head>
 <body>
 
@@ -23,8 +23,8 @@
       <a href="index.html" class="header-logo">
         <span class="header-logo__main">SETOUCHI BLUE VILLA</span>
       </a>
-      <button class="hamburger" aria-label="メニューを開く"><span></span><span></span><span></span></button>
-      <nav class="header-nav">
+      <button class="hamburger" aria-label="メニューを開く" aria-controls="site-nav" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="header-nav" id="site-nav">
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
           <li><a href="villa.html">Villa</a></li>
@@ -42,7 +42,7 @@
   <main>
     <section class="page-hero page-hero--short">
       <div class="page-hero__bg">
-        <img src="assets/images/setouchibluevilla-entrance.webp" alt="ヴィラエントランス">
+        <img src="assets/images/setouchibluevilla-entrance.webp" alt="ヴィラエントランス" width="1448" height="1086" decoding="async" fetchpriority="high">
       </div>
       <div class="page-hero__overlay"></div>
       <div class="page-hero__content">
@@ -62,6 +62,10 @@
 
             <div class="price-card">
               <p class="price-card__title">料金目安</p>
+              <div class="options-included-banner">
+                <span class="options-included-banner__badge">All Included</span>
+                <p class="options-included-banner__text">滞在リクエスト・ウェルカムドリンクなど、<strong>すべて宿泊料金に含まれます</strong>（追加料金なし）</p>
+              </div>
               <div class="price-row">
                 <span class="price-row__label">宿泊（<span id="price-nights">1泊</span>）</span>
                 <span class="price-row__value" id="price-base">¥150,000</span>
@@ -70,11 +74,15 @@
                 <span class="price-row__label">瀬戸内BBQプラン<span id="price-bbq-detail"></span></span>
                 <span class="price-row__value" id="price-bbq">¥0</span>
               </div>
+              <div class="price-row" id="price-options-row" style="display: none;">
+                <span class="price-row__label">滞在リクエスト<span id="price-options-detail"></span></span>
+                <span class="price-row__value" id="price-options">¥0</span>
+              </div>
               <div class="price-row price-row--total">
                 <span class="price-row__label">合計目安</span>
                 <span class="price-row__value" id="price-total">¥150,000</span>
               </div>
-              <p class="price-note">基本料金：¥150,000 / 泊　／　瀬戸内BBQプラン：¥5,000 / 人・1食　／　※表示は目安です。確定料金はご連絡時にお伝えします。</p>
+              <p class="price-note">基本料金：¥150,000 / 泊（朝食・滞在リクエスト込み）　／　<strong>有料オプションは瀬戸内BBQプランのみ</strong>（¥5,000 / 人・1食）　／　※表示は目安です。確定料金はご連絡時にお伝えします。</p>
             </div>
 
             <div class="access-info" id="access">
@@ -85,6 +93,11 @@
                 <li>今治港から車で約15分</li>
                 <li>駐車場あり（無料）</li>
               </ul>
+            </div>
+
+            <div class="access-info">
+              <h3>On-site Amenities</h3>
+              <p>シャンプーバイキング、ルームフレグランス、タオル・ブランケット・ひざ掛け、プール用ゴーグルなどの貸出品は、チェックイン時にヴィラエントランスにてお選びいただけます。宿泊人数に合わせた基本セットは、ご到着前からご用意しております。</p>
             </div>
 
             <div class="access-info">
@@ -135,6 +148,184 @@
                 </div>
               </div>
 
+              <div class="options-free-callout">
+                <p class="options-free-callout__lead">以下のオプションは <span class="option-free-badge option-free-badge--lg">すべて無料</span></p>
+                <p class="options-free-callout__sub">宿泊料金に含まれるおもてなしです。追加料金はかかりません。有料なのは瀬戸内BBQプランのみ。シャンプー・香り・貸出品はチェックイン時にエントランスでお選びください。</p>
+              </div>
+
+              <fieldset class="form-group option-group">
+                <legend class="option-group__legend">
+                  <span>滞在リクエスト</span>
+                  <span class="option-free-badge">すべて無料</span>
+                </legend>
+
+                <div class="option-compact-row">
+                  <div class="form-group">
+                    <label for="arrival-time">到着予定</label>
+                    <select id="arrival-time" name="arrival-time" class="stay-request-field">
+                      <option value="">未指定</option>
+                      <option value="15:00" data-label="到着15:00頃">15:00頃</option>
+                      <option value="15:30" data-label="到着15:30頃">15:30頃</option>
+                      <option value="16:00" data-label="到着16:00頃">16:00頃</option>
+                      <option value="16:30" data-label="到着16:30以降">16:30以降</option>
+                      <option value="omakase" data-label="到着おまかせ">おまかせ</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="breakfast-time">朝食配達</label>
+                    <select id="breakfast-time" name="breakfast-time" class="stay-request-field">
+                      <option value="08:00" data-label="朝食8:00頃">8:00頃</option>
+                      <option value="08:30" data-label="朝食8:30頃">8:30頃</option>
+                      <option value="09:00" data-label="朝食9:00頃">9:00頃</option>
+                      <option value="omakase" data-label="朝食おまかせ">おまかせ</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="option-compact-row">
+                  <div class="form-group">
+                    <label for="breakfast-place">朝食の場所</label>
+                    <select id="breakfast-place" name="breakfast-place" class="stay-request-field">
+                      <option value="omakase" data-label="朝食おまかせ">おまかせ</option>
+                      <option value="terrace" data-label="テラス朝食">テラス</option>
+                      <option value="indoor" data-label="室内朝食">室内</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="contact-method">連絡手段</label>
+                    <select id="contact-method" name="contact-method" class="stay-request-field">
+                      <option value="email" data-label="連絡：メール">メール優先</option>
+                      <option value="phone" data-label="連絡：電話">電話可</option>
+                      <option value="other" data-label="連絡：その他">その他</option>
+                    </select>
+                  </div>
+                </div>
+
+                <p class="option-section-label">ご希望 <span class="option-free-badge option-free-badge--sm">無料</span></p>
+                <div class="option-chip-grid">
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option" id="quiet-stay" name="options" value="quiet-stay" data-label="静かに過ごしたい" data-price="0" data-price-type="free">
+                    <span>静かに過ごしたい</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option" id="surprise-strict" name="options" value="surprise-strict" data-label="サプライズ厳守" data-price="0" data-price-type="free">
+                    <span>サプライズ厳守</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option" name="options" value="sauna-gachi" data-label="サウナガチ勢セット" data-price="0" data-price-type="free">
+                    <span>サウナガチ勢セット</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option" name="options" value="firepit" data-label="焚き火セット" data-price="0" data-price-type="free">
+                    <span>焚き火セット</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option" name="options" value="allergy" data-label="アレルギー・食事制限" data-price="0" data-price-type="free">
+                    <span>アレルギー・食事制限</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option request-toggle" id="sauna-after-checkin" name="options" value="sauna-after-checkin" data-label="CI後サウナ" data-price="0" data-price-type="free" data-target="sauna-after-fields">
+                    <span>CI後サウナ</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option request-toggle" id="sauna-morning" name="options" value="sauna-morning" data-label="朝サウナ" data-price="0" data-price-type="free" data-target="sauna-morning-fields">
+                    <span>朝サウナ</span>
+                  </label>
+                </div>
+                <div class="option-subfields option-subfields--inline" id="sauna-after-fields">
+                  <label for="sauna-after-time">CI後サウナ</label>
+                  <select id="sauna-after-time" name="sauna-after-time" class="stay-request-field">
+                    <option value="15:00" data-label="CI後サウナ15:00頃">15:00頃</option>
+                    <option value="15:30" data-label="CI後サウナ15:30頃">15:30頃</option>
+                    <option value="16:00" data-label="CI後サウナ16:00頃">16:00頃</option>
+                    <option value="16:30" data-label="CI後サウナ16:30以降">16:30以降</option>
+                  </select>
+                </div>
+                <div class="option-subfields option-subfields--inline" id="sauna-morning-fields">
+                  <label for="sauna-morning-time">朝サウナ</label>
+                  <select id="sauna-morning-time" name="sauna-morning-time" class="stay-request-field">
+                    <option value="06:00" data-label="朝サウナ6:00頃">6:00頃</option>
+                    <option value="07:00" data-label="朝サウナ7:00頃">7:00頃</option>
+                    <option value="07:30" data-label="朝サウナ7:30頃">7:30頃</option>
+                    <option value="08:00" data-label="朝サウナ8:00頃">8:00頃</option>
+                  </select>
+                </div>
+
+                <p class="option-section-label">ウェルカムドリンク <span class="option-free-badge option-free-badge--sm">無料</span></p>
+                <div class="option-chip-grid option-chip-grid--wide">
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="citrus-juice" data-label="柑橘ジュース" data-price="0" data-price-type="free"><span>柑橘ジュース</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="lemon-squash" data-label="レモンスカッシュ" data-price="0" data-price-type="free"><span>レモンスカッシュ</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="sparkling-citrus" data-label="柑橘スパークリング" data-price="0" data-price-type="free"><span>柑橘スパークリング</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="sparkling-nonal" data-label="ノンアル泡" data-price="0" data-price-type="free"><span>ノンアル泡</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="white-wine" data-label="白ワイン" data-price="0" data-price-type="free"><span>白ワイン</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="rose-wine" data-label="ロゼ" data-price="0" data-price-type="free"><span>ロゼ</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="sake" data-label="地酒" data-price="0" data-price-type="free"><span>地酒</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="beer" data-label="ビール" data-price="0" data-price-type="free"><span>ビール</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="welcome-drinks" value="sauna-drink" data-label="サウナ後ドリンク" data-price="0" data-price-type="free"><span>サウナ後ドリンク</span></label>
+                </div>
+
+                <p class="option-section-label">その他 <span class="option-free-badge option-free-badge--sm">無料</span></p>
+                <div class="option-chip-grid option-chip-grid--wide">
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option request-toggle" id="anniversary" name="options" value="anniversary" data-label="記念日セット" data-price="0" data-price-type="free" data-target="anniversary-fields">
+                    <span>記念日セット</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option request-toggle" id="with-children" name="options" value="with-children" data-label="お子様連れ" data-price="0" data-price-type="free" data-target="children-fields">
+                    <span>お子様連れ</span>
+                  </label>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option request-toggle" id="rental-cycle" name="options" value="rental-cycle" data-label="レンタサイクル" data-price="0" data-price-type="free" data-target="rental-cycle-fields">
+                    <span>レンタサイクル</span>
+                  </label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="options" value="cycle-basket" data-label="カゴ付きサイクル" data-price="0" data-price-type="free"><span>カゴ付き</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="options" value="blue-shop" data-label="本館ショップ案内" data-price="0" data-price-type="free"><span>本館案内</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="options" value="luggage" data-label="荷物預かり" data-price="0" data-price-type="free"><span>荷物預かり</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="options" value="early-checkin" data-label="アーリーCI相談" data-price="0" data-price-type="free"><span>アーリーCI</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="options" value="late-checkout" data-label="レイトCO相談" data-price="0" data-price-type="free"><span>レイトCO</span></label>
+                  <label class="option-chip"><input type="checkbox" class="stay-option" name="options" value="parking" data-label="駐車複数台" data-price="0" data-price-type="free"><span>駐車複数台</span></label>
+                </div>
+
+                <div class="option-subfields option-subfields--compact" id="anniversary-fields">
+                  <div class="option-compact-row">
+                    <div class="form-group">
+                      <label for="anniversary-type">用途</label>
+                      <select id="anniversary-type" name="anniversary-type" class="stay-request-field">
+                        <option value="">選択</option>
+                        <option value="birthday" data-label="誕生日">誕生日</option>
+                        <option value="wedding" data-label="結婚記念日">結婚記念日</option>
+                        <option value="proposal" data-label="プロポーズ">プロポーズ</option>
+                        <option value="longevity" data-label="還暦・長寿">還暦・長寿</option>
+                        <option value="other" data-label="その他記念日">その他</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="anniversary-message">メッセージカード</label>
+                      <input type="text" id="anniversary-message" name="anniversary-message" class="stay-request-field" placeholder="任意">
+                    </div>
+                  </div>
+                  <label class="option-chip">
+                    <input type="checkbox" class="stay-option" name="options" value="anniversary-extra" data-label="装飾・花" data-price="0" data-price-type="free">
+                    <span>簡易装飾・花も希望</span>
+                  </label>
+                </div>
+
+                <div class="option-subfields option-subfields--compact" id="children-fields">
+                  <label for="children-info">お子様の人数・年齢・必要なもの</label>
+                  <input type="text" id="children-info" name="children-info" class="stay-request-field" placeholder="例：3歳1名、食器・浮き輪">
+                </div>
+
+                <div class="option-subfields option-subfields--inline" id="rental-cycle-fields">
+                  <label for="cycle-count">台数</label>
+                  <select id="cycle-count" name="cycle-count" class="stay-request-field">
+                    <option value="1" data-label="サイクル1台">1台</option>
+                    <option value="2" data-label="サイクル2台">2台</option>
+                    <option value="3" data-label="サイクル3台">3台</option>
+                    <option value="4" data-label="サイクル4台">4台</option>
+                    <option value="5" data-label="サイクル5台以上">5台以上</option>
+                  </select>
+                </div>
+              </fieldset>
+
               <div class="form-group">
                 <label for="name">氏名</label>
                 <input type="text" id="name" name="name" placeholder="山田 太郎" required>
@@ -153,7 +344,7 @@
 
               <div class="form-group">
                 <label for="notes">備考</label>
-                <textarea id="notes" name="notes" placeholder="記念日の利用、食物アレルギー、アレルギー対応のご希望など"></textarea>
+                <textarea id="notes" name="notes" placeholder="アレルギーの詳細、浮き輪のサイズ、駐車車種、連絡手段の補足など"></textarea>
               </div>
 
               <button type="submit" class="btn btn--primary form-submit">予約リクエストを送信</button>
@@ -168,7 +359,7 @@
     </section>
 
     <div class="image-band">
-      <img src="assets/images/setouchibluevilla-night-terrace.webp" alt="夜のヴィラ">
+      <img src="assets/images/setouchibluevilla-night-terrace.webp" alt="夜のヴィラ" width="1672" height="941" decoding="async" loading="lazy">
     </div>
   </main>
 
@@ -206,6 +397,6 @@
       </div>
     </div>
   </footer>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260624-7"></script>
 </body>
 </html>

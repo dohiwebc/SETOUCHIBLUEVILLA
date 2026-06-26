@@ -198,6 +198,17 @@ button {
   transition: background var(--transition), box-shadow var(--transition), backdrop-filter var(--transition);
 }
 
+.site-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-area-top);
+  background: var(--bg-primary);
+  pointer-events: none;
+}
+
 .site-header.is-scrolled {
   background: rgba(15, 15, 17, 0.92);
   box-shadow: 0 1px 0 var(--border);

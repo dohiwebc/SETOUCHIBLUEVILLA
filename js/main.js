@@ -3,7 +3,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHeader();
   initHamburger();
   initScrollAnimations();
   initFaqAccordion();
@@ -11,35 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryLightbox();
   setActiveNav();
 });
-
-/* Header scroll behavior */
-function initHeader() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-
-  const isHome = document.body.classList.contains('page-home');
-
-  if (isHome) {
-    header.classList.add('is-transparent');
-  } else {
-    header.classList.add('is-scrolled');
-  }
-
-  const onScroll = () => {
-    if (window.scrollY > 60) {
-      header.classList.add('is-scrolled');
-      header.classList.remove('is-transparent');
-    } else if (isHome) {
-      header.classList.remove('is-scrolled');
-      header.classList.add('is-transparent');
-    } else {
-      header.classList.remove('is-scrolled');
-    }
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
 
 /* Hamburger menu */
 function initHamburger() {

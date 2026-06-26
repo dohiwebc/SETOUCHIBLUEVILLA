@@ -195,37 +195,9 @@ button {
   padding-top: var(--safe-area-top);
   display: flex;
   align-items: center;
-  transition: background var(--transition), box-shadow var(--transition), backdrop-filter var(--transition);
-}
-
-.site-header::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--safe-area-top);
   background: var(--bg-primary);
-  pointer-events: none;
-}
-
-.site-header.is-scrolled {
-  background: rgba(15, 15, 17, 0.92);
   box-shadow: 0 1px 0 var(--border);
-}
-
-.site-header.is-scrolled::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  pointer-events: none;
-  z-index: -1;
-}
-
-.site-header.is-transparent {
-  background: transparent;
+  transition: box-shadow var(--transition);
 }
 
 .header-inner {
@@ -371,7 +343,7 @@ button {
     height: 100vh;
     height: 100dvh;
     z-index: 1100;
-    background: rgba(15, 15, 17, 0.98);
+    background: var(--bg-primary);
     flex-direction: column;
     justify-content: center;
     align-items: center;

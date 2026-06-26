@@ -18,7 +18,9 @@
   --border-subtle: rgba(245, 243, 239, 0.08);
   --font-serif-en: 'Cormorant Garamond', Georgia, serif;
   --font-serif-jp: 'Noto Serif JP', serif;
+  --safe-area-top: env(safe-area-inset-top, 0px);
   --header-height: 80px;
+  --header-outer-height: calc(var(--header-height) + var(--safe-area-top));
   --transition: 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   --section-padding: clamp(88px, 13vw, 152px);
 }
@@ -189,7 +191,8 @@ button {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--header-height);
+  height: var(--header-outer-height);
+  padding-top: var(--safe-area-top);
   display: flex;
   align-items: center;
   transition: background var(--transition), box-shadow var(--transition), backdrop-filter var(--transition);
@@ -219,6 +222,7 @@ button {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  height: var(--header-height);
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 clamp(20px, 5vw, 48px);
@@ -477,7 +481,7 @@ button {
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: calc(var(--header-height) + 60px) clamp(20px, 5vw, 48px) clamp(60px, 10vw, 100px);
+  padding: calc(var(--header-outer-height) + 60px) clamp(20px, 5vw, 48px) clamp(60px, 10vw, 100px);
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
@@ -667,7 +671,7 @@ button {
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: calc(var(--header-height) + 40px) clamp(20px, 5vw, 48px) clamp(48px, 8vw, 80px);
+  padding: calc(var(--header-outer-height) + 40px) clamp(20px, 5vw, 48px) clamp(48px, 8vw, 80px);
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -1648,7 +1652,7 @@ body.is-lightbox-open {
 
 .booking-info {
   position: sticky;
-  top: calc(var(--header-height) + 40px);
+  top: calc(var(--header-outer-height) + 40px);
 }
 
 .price-card {
@@ -2440,7 +2444,7 @@ body.is-lightbox-open {
 
 .faq-visual {
   position: sticky;
-  top: calc(var(--header-height) + 40px);
+  top: calc(var(--header-outer-height) + 40px);
 }
 
 .faq-visual img {
@@ -2754,10 +2758,10 @@ body.is-lightbox-open {
 }
 
 .error-page {
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-outer-height));
   display: flex;
   align-items: center;
-  padding-top: calc(var(--header-height) + 40px);
+  padding-top: calc(var(--header-outer-height) + 40px);
 }
 
 .error-page__inner {
@@ -3262,7 +3266,7 @@ body.is-lightbox-open {
   }
 
   .hero__content {
-    padding: calc(var(--header-height) + 28px) 16px 40px;
+    padding: calc(var(--header-outer-height) + 28px) 16px 40px;
   }
 
   .hero__label {
@@ -3294,7 +3298,7 @@ body.is-lightbox-open {
   }
 
   .page-hero__content {
-    padding: calc(var(--header-height) + 20px) 16px 32px;
+    padding: calc(var(--header-outer-height) + 20px) 16px 32px;
   }
 
   .highlights-showcase {
